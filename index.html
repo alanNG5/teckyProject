@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NLC Profile</title>
+</head>
+<link rel="stylesheet" href="MyStyle.css">
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+crossorigin="anonymous"
+referrerpolicy="no-referrer"
+/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=neon|outline|emboss|shadow-multiple">
+<style>
+</style>
+<body>
+    <header>
+        <div id="topLeft">
+            <img id="profileLogo" src="img/nlcLogo.jpg"/>
+            <div id="name">
+                <span class="font-effect-shadow-multiple"><strong>ALAN NG's Profile</strong></span>
+                <span>Student for Corhort-29 @ Tecky Academy</span>
+            </div>
+        </div>
+        <div id="topRight" class="centerBox">
+            <div>
+                <a href="https://github.com/alanNG5" title="Alan Ng's Github" TARGET="_blank" rel="noopener"><i class="fa-brands fa-github"></i></a>
+                <a href="https://www.facebook.com/alan5ng/" title="Alan Ng's Github" TARGET="_blank" rel="noopener"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.instagram.com/alan_ng_superb/" title="Alan Ng's Github" TARGET="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.youtube.com/watch?v=GK0kbYJ3a8w&t=14s" title="Alan Ng's Github" TARGET="_blank" rel="noopener" onclick="myFriend()"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+            <div id="photo">
+                <img src="img/nlc.jpeg"/>
+            </div>
+        </div>
+    </header>
+    <nav>
+        <ui>
+            <li>Main</li>
+            <a href="page.html"><li>Hobbies</li></a>
+            <a href="sim.html"><li>Game of Life</li></a>
+        </ui>
+    </nav>
+    <div class="centerBox">
+        <div id="subtitle">Year of Career</div>
+        <div id="subtitle">Timeline</div>
+        <div id="subtitle">Institution Involved</div>
+    </div>
+    <main class="centerBox">
+        <div id="yearShow">
+            2010
+        </div>
+        <div id="timeline" class="centerBox">
+            <div id="frame"></div>
+            <input id="bar" type="range" orient="vertical" min="0" max="13" value="0" onchange="slide()"/>
+        </div>
+        <div id="entity">
+            <img src="0.png"/>
+        </div>
+        <img id="di" src="img/Dilbert.png">
+        <div id="com">Studying</div>
+    </main>
+    <footer>
+        <img src="img/city.png" width="100%"/>
+    </footer>
+    <script>
+
+        let career = ["Studying","Gifted Education","Gifted Education","LinkedTech","LinkedTech","PwC","PwC","Transtech Optelecom","Transtech Optelecom","EMSD","EMSD","HA","HA","Studying"]
+
+        function slide() {
+            let yearGet = document.getElementById("bar").value
+            document.getElementById("yearShow").textContent = parseInt(yearGet) + 2010
+            document.querySelector("#entity").innerHTML = `<img src="${yearGet}.png" onerror="workNextYear()"/>`
+            document.getElementById("com").textContent = career[parseInt(yearGet)]
+        }
+
+        function workNextYear() {
+            let yearGet = document.getElementById("bar").value
+            document.querySelector("#entity").innerHTML = `<img src="${yearGet - 1}.png"/>`
+        }
+
+        function myFriend() {
+            alert("Please comment, like & share my friend's YouTube channel. Gracias!");
+        }
+
+    </script>
+</body>
+</html>
+    <!-- <div>
+        <i class="fa-solid fa-truck-medical"></i>
+        <i class="fa-solid fa-calculator"></i>
+    </div> -->

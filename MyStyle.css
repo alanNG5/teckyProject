@@ -1,0 +1,245 @@
+body {
+    background-color: rgb(246,246,247);
+    margin: 0px;
+    font-family: "Audiowide", sans-serif;
+}
+
+a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+header {
+    background-color: rgb(68, 140, 156);
+    height: 15rem;
+    font-size: 4rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    justify-content: space-around;
+    display: flex;
+    padding: 1.5rem;
+}
+
+#profileLogo {
+    height: 13rem;
+    border-radius: 50%;
+    padding: 0px;
+}
+
+#photo {
+    position: absolute;
+    margin: 1.5em;
+}
+
+#photo img {
+    border: solid 8px white;
+    border-radius: 15px;
+    height: 220px;
+}
+
+#topLeft {
+    display: flex;
+    color: Black;
+    justify-content: space-around;
+    width: 60%;
+    align-items: center;
+}
+
+#topRight {
+    display: flex;
+    width: 30%; 
+    justify-content: space-around;
+    font-size: 3rem;
+}
+
+#name {
+    flex-direction: column;
+    margin-left: 1em;
+}
+
+#name :nth-child(2) {
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+
+nav {
+    background: #000000;
+    height: 5rem;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+li {
+    float: left;
+    color: white;
+    list-style-type: none;
+    font-size: 2rem;
+    margin-top: 1rem;
+    margin-left: 12%;
+    border-top: solid 1px white;
+    border-bottom: solid 1px white;
+  }
+
+.centerBox {
+    display: flex;
+    justify-content: center;
+}
+
+#subtitle {
+    width: 25%;
+    margin: 2rem 0.5rem;
+    text-align: center;
+    background-color: rgb(68, 140, 156);
+    color: white;
+    font-size: 2rem;
+}
+
+main {
+    align-items: center;
+}
+
+main div {
+    width: 25%;
+    margin: 0.5rem;
+}
+
+#timeline {
+    height: 41rem;
+}
+
+#yearShow, #entity {
+    height: 21rem;
+}
+
+#yearShow {
+    color:  rgb(68, 140, 156);
+    font-size: 8rem;
+    text-align: center;
+    text-shadow: 5px 5px black;
+}
+
+input[type=range][orient=vertical] {
+    appearance: slider-vertical;
+    width: 50%;
+    height: 35rem;
+    padding: 0px 15px;
+    margin: 50px;
+    transform: rotate(180deg);
+}
+
+#frame {
+    position: absolute;
+    width: 5em;
+    height: 38rem;
+    background: rgb(228, 219, 219);
+    margin: 30px 0px;
+    border-radius: 20px 20px;
+    box-shadow: 6px 6px 10px;
+}
+
+#entity {
+    text-align: center;
+}
+
+#entity img {
+    width: 90%;
+}
+
+h3 {
+    margin-left: 15%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 70%;
+    padding: 1rem;
+    text-align: center;
+    border-top: solid 3px rgb(68, 140, 156);
+    border-bottom: solid 3px rgb(68, 140, 156);
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    letter-spacing: 2px;
+    line-height: 1.6;
+}
+
+section div {
+    align-items: center;
+}
+
+.film {
+    width: 30%;
+    color: gray;
+    font-size: 2.5rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 1rem;
+    padding: 2rem;
+    border-top: solid 3px gray;
+    border-bottom: solid 3px gray;
+    position: relative;
+    display: flex;
+}
+
+.quote {
+    left: -16px;
+    width: 100%;
+    height: 80%;
+    font-size: 2.5rem;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: white;
+    padding-top: 2rem;
+    padding-left: 3rem;
+    border-top: 6px dashed white;
+    border-bottom: 6px dashed white;
+    position: absolute;
+    background-color: black;
+    opacity: 0;
+}
+
+.quote-left {
+    left: -32px;
+    padding: 2.5rem;
+    font-family:monospace;
+    font-size: 1.5rem;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.quote:hover {
+    opacity: 1;
+}
+
+.cap {
+    border: solid 3px black;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.cap:nth-child(odd) {
+    box-shadow: 6px 5px 6px gray;
+}
+
+.cap:nth-child(even) {
+    box-shadow: -6px 5px 6px gray;
+}
+
+#di {
+    position: absolute;
+    display: flex;
+    left: 35%;
+    top: 103%;
+}
+
+#com {
+    position: absolute;
+    display: flex;
+    left: 65%;
+    top: 130%;
+    color: blue;
+    font-size: 2rem;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    text-shadow: 5px 5px 6px grey;
+}
+
+
+footer {
+    background-image: linear-gradient(rgb(246,246,247), black);
+}

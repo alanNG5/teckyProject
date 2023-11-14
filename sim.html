@@ -1,0 +1,302 @@
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        background-image: url("sky.jpeg");
+        text-align: center;
+      }
+
+      #simName {
+        font-size: 3rem;
+        font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        color: white;
+        text-shadow: 5px 4px 6px black;
+        word-spacing: 15px;
+      }
+
+      #canvas:hover {
+        animation: shake 0.5s;
+        animation-iteration-count: infinite;
+      }
+
+      @keyframes shake {
+        10% { transform: translate(-1px, -2px) rotate(-1deg); }
+        20% { transform: translate(-3px, 0px) rotate(1deg); }
+        40% { transform: translate(1px, -1px) rotate(1deg); }
+        50% { transform: translate(-1px, 2px) rotate(-1deg); }
+        70% { transform: translate(3px, 1px) rotate(-1deg); }
+        80% { transform: translate(-1px, -1px) rotate(1deg); }
+        100% { transform: translate(1px, -2px) rotate(-1deg); }
+      }
+
+      #panel {
+        width: 48%;
+        height: 95px;
+        margin-left: 25%;
+        background-color: gray;
+        border: solid 2px black;
+        border-radius: 10px;
+        display: flex;
+        padding-left: 1.5%;
+      }
+
+      #reset-game, #penColor, #lowFrame, #highFrame, #medFrame {
+        height: 90px;
+        background-color: rgb(215, 212, 212);
+        box-shadow: 2px 2px 0px rgba(255, 255, 255);
+      }
+
+      #reset-game {
+        width: 15%;
+      }
+      #highFrame, #lowFrame, #medFrame{
+        width: 11%;
+        font-size: 0.9rem;
+      }
+
+      #penColor {
+        width: 10%;
+      }
+
+      .fight {
+        position: absolute;
+        display: flex;
+        top: 10%;
+        z-index: 0;
+      }
+
+      #right {
+        left: 80%;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="simName">DOG FIGHT SIMULATION</div>
+    <div id="canvas"></div>
+    <img class="fight" src="img/fighters.png" width="300px"/>
+    <img class="fight" id="right" src="img/f16.png" width="300px"/>
+
+    <div id="panel">
+      <img src="/img/panel-left.jpeg" height="90px"/>
+      <button id="reset-game">reset</button>
+      <input id="penColor" type="color"></input>
+      <button id="lowFrame" onclick="lowFrame()">Low</button>
+      <button id="lowFrame" onclick="medFrame()">Medium</button>
+      <button id="highFrame" onclick="highFrame()">High</button>
+      <img src="/img/Panel-2D.jpeg" height="90px"/>
+
+      <!-- <label for="customRange2" class="form-label"></label>
+      <input type="range" class="form-range" min="0" max="60" value="0" id="customRange2" onchange="changeVal()"> -->
+
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.js"></script>
+    <script src="dogFight.js"></script>
+    <script>
+      const unitLength = 10
+      const strokeColor = (255, 255, 255, 0)
+      const bgAlpha = 100
+      let columns
+      let rows
+      let board
+      let bg
+      let isRunning = true
+
+      function setup() {
+        frameRate(30);
+        bg = loadImage("sky.jpeg");
+        const canvas = createCanvas(900, 600)
+        canvas.parent(document.querySelector('#canvas'))
+
+        columns = floor(width / unitLength)
+        rows = floor(height / unitLength)
+        board = []
+
+        // slider = createSlider(0, 255, 100);
+        // slider.position(10, 10);
+        // slider.style('width', '80px');
+
+        init()
+      }
+
+      function init() {
+        for (let x = 0; x < columns; x++) {
+          board[x] = []
+          for (let y = 0; y < rows; y++) {
+            board[x][y] = {
+              current: 0,
+              next: 0,
+              boxColor: penColor.value,
+              bgColor: penColor.value + bgAlpha,
+            }
+          }
+        }
+      }
+
+      function draw() {
+        background(bg)
+        // let val = slider.value();
+        // background(val);
+        if (isRunning) {
+          generate()
+        }
+        let a =
+          ((Math.sin((Date.now() / 5000) * 5 * Math.PI) + 1) / 2) * 120 + 120 // original: / 2000... * 127 + 127
+        for (let x = 0; x < columns; x++) {
+          for (let y = 0; y < rows; y++) {
+            let cell = board[x][y]
+            let fillColor
+            if (cell.current == 1) {
+              fillColor = cell.boxColor
+            } else {
+              fillColor = "skyblue"
+            }
+            let [r, g, b] = color(fillColor).levels
+            fill(color(r, g, b, a - 60))
+
+            stroke(0, 0, 0, 0)
+            rect(x * unitLength, y * unitLength, unitLength, unitLength)
+          }
+        }
+      }
+
+
+      function generate() {
+        
+        for (let x = 0; x < columns; x++) {
+          for (let y = 0; y < rows; y++) {
+            let cell = board[x][y]
+            
+            let neighbors = 0
+            let parentR = 0
+            let parentG = 0
+            let parentB = 0
+            for (let dx of [-1, 0, 1]) {
+              for (let dy of [-1, 0, 1]) {
+                if (dx == 0 && dy == 0) {
+                  
+                  continue
+                }
+                
+                let peerX = (x + dx + columns) % columns
+                let peerY = (y + dy + rows) % rows
+                let parent = board[peerX][peerY]
+                if (parent.current == 1) {
+                  neighbors += parent.current
+                  let [r, g, b] = color(parent.boxColor).levels
+                  parentR += r
+                  parentG += g
+                  parentB += b
+                }
+              }
+            }
+
+            if (cell.current == 1 && neighbors < 2) {
+              
+              cell.next = 0
+            } else if (cell.current == 1 && neighbors > 3) {
+              
+              cell.next = 0
+            } else if (cell.current == 0 && neighbors == 3) {
+              
+              cell.next = 1
+              let r = parentR / neighbors
+              let g = parentG / neighbors
+              let b = parentB / neighbors
+              cell.boxColor = color(r, g, b)
+              cell.bgColor = color(r, g, b, bgAlpha)
+            } else {
+              cell.next = cell.current
+            }
+          }
+        }
+
+        for (let x = 0; x < columns; x++) {
+          for (let y = 0; y < rows; y++) {
+            let cell = board[x][y]
+            cell.current = cell.next
+          }
+        }
+      }
+
+      function mouseDragged() {
+        if (mouseX > unitLength * columns || mouseY > unitLength * rows) {
+          return
+        }
+        const x = Math.floor(mouseX / unitLength)
+        const y = Math.floor(mouseY / unitLength)
+
+        for (let { dx, dy, alive } of pattern) {
+          placeCell(x + dx, y + dy, alive)
+        }
+
+        draw()
+      }
+
+      function placeCell(x, y, alive) {
+        while (x < 0) x += columns
+        x = x % columns
+
+        while (y < 0) y += rows
+        y = y % rows
+
+        let cell = board[x][y]
+        cell.current = alive ? 1 : 0
+        cell.boxColor = penColor.value
+        cell.bgColor = penColor.value + bgAlpha
+      }
+
+      function mousePressed() {
+        isRunning = false
+        mouseDragged()
+      }
+
+      function mouseReleased() {
+        isRunning = true
+      }
+
+      document
+        .querySelector('#reset-game')
+        .addEventListener('click', function () {
+          init()
+        })
+
+
+      function highFrame() {
+        frameRate(60);
+      }
+  
+      function lowFrame() {
+        frameRate(5);
+      }
+
+      function medFrame() {
+        frameRate(20);
+      }
+
+
+      // function changeVal() {
+      //       let v = document.getElementById("customRange2").value
+      //       frameRate(v)
+      // }
+
+
+    </script>
+  </body>
+</html>
